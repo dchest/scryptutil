@@ -1,0 +1,29 @@
+COMMAND
+
+    scryptutil encrypts and decrypts files.
+
+    Files are encrypted with AES-256 in CTR mode and are authenticated with
+    HMAC-SHA256. The key is derived from passphrase using scrypt key
+    derivation function.
+
+    Usage:
+
+	scryptutil {enc | dec} infile [outfile]
+
+    If outfile is not given, the program writes to the standard output.
+
+    scryptutil is a Go reimplementation of Colin Percival's scrypt utility,
+    which is used to encrypt key files for his Tarsnap backup service (see
+    http://www.tarsnap.com/scrypt.html).
+
+INSTALLATION
+
+    $ go get github.com/dchest/scryptutil
+
+BUGS
+
+    Parameters for KDF during encryption are hardcoded to N=2¹⁴, r=8, p=1.
+
+    Passwords are echoed to terminal when entering them.
+
+    None of the original scrypt utility flags are supported.
