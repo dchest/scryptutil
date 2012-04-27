@@ -3,8 +3,8 @@ COMMAND
     scryptutil encrypts and decrypts files.
 
     Files are encrypted with AES-256 in CTR mode and are authenticated with
-    HMAC-SHA256. Encryption and HMAC keys are derived from passphrase using scrypt
-    key derivation function.
+    HMAC-SHA256. Encryption and HMAC keys are derived from passphrase using
+    scrypt key derivation function.
 
     Usage:
 
@@ -14,7 +14,9 @@ COMMAND
 
     scryptutil is a Go reimplementation of Colin Percival's scrypt utility,
     which is used to encrypt key files for his Tarsnap backup service (see
-    http://www.tarsnap.com/scrypt.html).
+    http://www.tarsnap.com/scrypt.html). The file format is the same: files
+    encrypted by this utility can be decrypted with the original scrypt, and
+    vice versa.
 
 INSTALLATION
 
