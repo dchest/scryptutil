@@ -7,8 +7,8 @@
 scryptutil encrypts and decrypts files.
 
 Files are encrypted with AES-256 in CTR mode and are authenticated with
-HMAC-SHA256. The key is derived from passphrase using scrypt key derivation
-function.
+HMAC-SHA256. Encryption and HMAC keys are derived from passphrase using scrypt
+key derivation function.
 
 Usage:
     scryptutil {enc | dec} infile [outfile]
