@@ -104,13 +104,19 @@ func main() {
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
+	// Function fatal will clean password, output message and exit.
+	fatal := func(msg string, args... interface{}) {
+		clearBytes(password)
+		log.Fatalf(msg, args...)
+	}
+	// Defer cleaning of password for normal exit.
 	defer func() {
 		clearBytes(password)
 	}()
 	// Open input file.
 	in, err := os.Open(flag.Arg(1))
 	if err != nil {
-		log.Fatalf("%s", err)
+		fatal("%s", err)
 	}
 	defer in.Close()
 	// Open output file.
@@ -120,14 +126,14 @@ func main() {
 	} else {
 		out, err = os.Create(flag.Arg(2))
 		if err != nil {
-			log.Fatalf("create: %s", err)
+			fatal("create: %s", err)
 		}
 		defer func() {
 			if err := out.Sync(); err != nil {
 				log.Printf("fsync: %s", err)
 			}
 			if err := out.Close(); err != nil {
-				log.Fatalf("close: %s", err)
+				fatal("close: %s", err)
 			}
 		}()
 	}
@@ -135,11 +141,11 @@ func main() {
 	switch flag.Arg(0) {
 	case "enc":
 		if err := encrypt(in, out, password); err != nil {
-			log.Fatalf("decrypt: %s", err)
+			fatal("decrypt: %s", err)
 		}
 	case "dec":
 		if err := decrypt(in, out, password); err != nil {
-			log.Fatalf("decrypt: %s", err)
+			fatal("decrypt: %s", err)
 		}
 	}
 }
