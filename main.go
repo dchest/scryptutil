@@ -14,7 +14,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dchest/scrypt"
+	"code.google.com/p/go.crypto/scrypt"
 )
 
 const (
