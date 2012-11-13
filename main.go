@@ -51,7 +51,13 @@ func scanLine(r *bufio.Reader, msg string) (line []byte, err error) {
 	if err != nil {
 		return nil, err
 	}
-	line = line[:len(line)-1]
+	if line[len(line)-1] == '\n' {
+		drop := 1
+		if len(line) > 1 && line[len(line)-2] == '\r' {
+			drop = 2
+		}
+		line = line[:len(line)-drop]
+	}
 	return
 }
 
@@ -105,7 +111,7 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 	// Function fatal will clean password, output message and exit.
-	fatal := func(msg string, args... interface{}) {
+	fatal := func(msg string, args ...interface{}) {
 		clearBytes(password)
 		log.Fatalf(msg, args...)
 	}
