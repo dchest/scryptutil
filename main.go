@@ -45,14 +45,13 @@ func clearBytes(b []byte) {
 	}
 }
 
-func scanLine(r *bufio.Reader, msg string) (line []byte, err error) {
+func scanLine(r *bufio.Reader, msg string) ([]byte, error) {
 	fmt.Printf(msg)
-	line, err = r.ReadBytes('\n')
+	line, err := r.ReadBytes('\n')
 	if err != nil {
 		return nil, err
 	}
-	line = line[:len(line)-1]
-	return
+	return bytes.TrimRight(line, "\n\r"), nil
 }
 
 func askForPassword(confirm bool) (password []byte, err error) {
@@ -105,7 +104,7 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 	// Function fatal will clean password, output message and exit.
-	fatal := func(msg string, args... interface{}) {
+	fatal := func(msg string, args ...interface{}) {
 		clearBytes(password)
 		log.Fatalf(msg, args...)
 	}
