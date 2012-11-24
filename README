@@ -8,8 +8,9 @@ COMMAND
 
     Usage:
 
-	scryptutil {enc | dec} infile [outfile]
+	scryptutil {enc | dec} [infile] [outfile]
 
+    If infile is not give, the program reads from the standard input.
     If outfile is not given, the program writes to the standard output.
 
     scryptutil is a Go reimplementation of Colin Percival's scrypt utility,
