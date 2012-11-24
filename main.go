@@ -87,7 +87,7 @@ func askForPassword(confirm bool) (password []byte, err error) {
 }
 
 func usage() {
-	fmt.Printf("Usage: %s {enc | dec} infile [outfile]\n", os.Args[0])
+	fmt.Printf("Usage: %s {enc | dec} [infile] [outfile]\n", os.Args[0])
 	os.Exit(1)
 }
 
@@ -95,7 +95,7 @@ func main() {
 	log.SetFlags(0)
 	flag.Parse()
 	// Check arguments.
-	if flag.NArg() < 2 || flag.Arg(0) != "enc" && flag.Arg(0) != "dec" {
+	if flag.NArg() < 1 || flag.Arg(0) != "enc" && flag.Arg(0) != "dec" {
 		usage()
 	}
 	// Ask for password.
@@ -113,13 +113,17 @@ func main() {
 		clearBytes(password)
 	}()
 	// Open input file.
-	in, err := os.Open(flag.Arg(1))
-	if err != nil {
-		fatal("%s", err)
+	var in, out *os.File
+	if flag.NArg() < 2 {
+		in = os.Stdin
+	} else {
+		in, err := os.Open(flag.Arg(1))
+		if err != nil {
+			fatal("%s", err)
+		}
+		defer in.Close()
 	}
-	defer in.Close()
 	// Open output file.
-	var out *os.File
 	if flag.NArg() < 3 {
 		out = os.Stdout
 	} else {
