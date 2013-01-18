@@ -117,7 +117,7 @@ func main() {
 	if flag.NArg() < 2 {
 		in = os.Stdin
 	} else {
-		in, err := os.Open(flag.Arg(1))
+		in, err = os.Open(flag.Arg(1))
 		if err != nil {
 			fatal("%s", err)
 		}
@@ -144,7 +144,7 @@ func main() {
 	switch flag.Arg(0) {
 	case "enc":
 		if err := encrypt(in, out, password); err != nil {
-			fatal("decrypt: %s", err)
+			fatal("encrypt: %s", err)
 		}
 	case "dec":
 		if err := decrypt(in, out, password); err != nil {
