@@ -40,7 +40,7 @@ func encrypt(r io.Reader, w io.Writer, password []byte) error {
 		return err
 	}
 	p := &params{
-		logN: 15, //TODO(dchest) implement detection of optimal logN.
+		logN: 16, //TODO(dchest) implement detection of optimal logN.
 		r:    8,
 		p:    1,
 		salt: salt,
