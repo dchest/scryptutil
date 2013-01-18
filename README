@@ -25,7 +25,7 @@ INSTALLATION
 
 BUGS
 
-    Parameters for KDF during encryption are hardcoded to N=2¹⁵, r=8, p=1.
+    Parameters for KDF during encryption are hardcoded to N=2¹⁶, r=8, p=1.
 
     Passwords are echoed to terminal when entering them.
 
