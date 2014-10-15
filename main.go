@@ -48,12 +48,12 @@ func clearBytes(b []byte) {
 func askForPassword(confirm bool) (password []byte, err error) {
 	for {
 		fmt.Printf("Enter passphrase: ")
-		password = []byte(gopass.GetPasswd())
+		password = gopass.GetPasswd()
 		if !confirm {
 			break
 		}
 		fmt.Printf("Confirm passphrase: ")
-		confirmation := []byte(gopass.GetPasswd())
+		confirmation := gopass.GetPasswd()
 		if len(password) == 0 {
 			fmt.Println("Empty password, please try again.")
 			clearBytes(confirmation)
