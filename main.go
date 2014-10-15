@@ -7,7 +7,6 @@ package main
 //TODO(dchest): implement flags maxmem, maxmemfrac, maxtime.
 
 import (
-	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -15,6 +14,7 @@ import (
 	"os"
 
 	"code.google.com/p/go.crypto/scrypt"
+	"github.com/howeyc/gopass"
 )
 
 const (
@@ -45,31 +45,15 @@ func clearBytes(b []byte) {
 	}
 }
 
-func scanLine(r *bufio.Reader, msg string) ([]byte, error) {
-	fmt.Printf(msg)
-	line, err := r.ReadBytes('\n')
-	if err != nil {
-		return nil, err
-	}
-	return bytes.TrimRight(line, "\n\r"), nil
-}
-
 func askForPassword(confirm bool) (password []byte, err error) {
-	//TODO(dchest): turn off terminal echo.
-	r := bufio.NewReader(os.Stdin)
 	for {
-		password, err = scanLine(r, "Enter passphrase: ")
-		if err != nil {
-			return
-		}
+		fmt.Printf("Enter passphrase: ")
+		password = []byte(gopass.GetPasswd())
 		if !confirm {
 			break
 		}
-		var confirmation []byte
-		confirmation, err = scanLine(r, "Confirm passphrase: ")
-		if err != nil {
-			return
-		}
+		fmt.Printf("Confirm passphrase: ")
+		confirmation := []byte(gopass.GetPasswd())
 		if len(password) == 0 {
 			fmt.Println("Empty password, please try again.")
 			clearBytes(confirmation)
