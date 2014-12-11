@@ -13,7 +13,7 @@ import (
 	"log"
 	"os"
 
-	"code.google.com/p/go.crypto/scrypt"
+	"golang.org/x/crypto/scrypt"
 	"github.com/howeyc/gopass"
 )
 
